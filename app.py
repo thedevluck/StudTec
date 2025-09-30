@@ -1,11 +1,12 @@
 import os
 import streamlit as st
 import google.generativeai as genai
+from google.ai.generativelanguage import GenerativeLanguageClient
 
 # ==========================
 # CONFIGURAÇÃO DA API GEMINI
 # ==========================
-api_key = os.getenv("YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0", st.secrets.get("YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0", None))
+api_key = os.getenv("YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0")
 if not api_key:
     st.error("❌ Chave da API do Gemini não encontrada. Configure em `st.secrets` como GOOGLE_API_KEY.")
 else:
