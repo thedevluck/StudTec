@@ -5,7 +5,7 @@ import google.generativeai as genai
 # CONFIGURAÇÃO DA API GEMINI
 # ==========================
 genai.configure(api_key="YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0")
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-pro")
 
 # ==========================
 # FUNÇÃO DE RESUMO
