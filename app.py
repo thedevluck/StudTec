@@ -1,7 +1,6 @@
 import os
 import streamlit as st
 import google.generativeai as genai
-from google.ai.generativelanguage import GenerativeLanguageClient
 
 # ==========================
 # CONFIGURAÇÃO DA API GEMINI
