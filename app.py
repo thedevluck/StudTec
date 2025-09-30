@@ -1,25 +1,40 @@
+import os
 import streamlit as st
 import google.generativeai as genai
 
 # ==========================
 # CONFIGURAÇÃO DA API GEMINI
 # ==========================
-genai.configure(api_key="YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0")
-model = genai.GenerativeModel("gemini-pro")
+api_key = os.getenv("YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0", st.secrets.get("YAIzaSyBuW08z3WaNt3lvdlmvkmRaWiLJ9PnZvP0", None))
+if not api_key:
+    st.error("❌ Chave da API do Gemini não encontrada. Configure em `st.secrets` como GOOGLE_API_KEY.")
+else:
+    genai.configure(api_key=api_key)
+    try:
+        model = genai.GenerativeModel("gemini-1.5-pro")
+    except Exception:
+        model = genai.GenerativeModel("gemini-pro")
 
 # ==========================
 # FUNÇÃO DE RESUMO
 # ==========================
 def gerar_resumo(area, materia, subtopico, tema):
+    if not tema:
+        return "⚠️ Nenhum tema selecionado."
+
     prompt = f"""
-    Resuma o conteúdo de ENEM abaixo de forma clara e objetiva:
+    Explique de forma resumida e didática o seguinte conteúdo para o ENEM:
     Área: {area}
     Matéria: {materia}
     Subtópico: {subtopico}
     Tema: {tema}
     """
-    response = model.generate_content(prompt)
-    return response.text
+
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        return f"❌ Erro ao gerar resumo: {str(e)}"
 
 # ==========================
 # CONTEÚDOS COMPLETOS DO ENEM
